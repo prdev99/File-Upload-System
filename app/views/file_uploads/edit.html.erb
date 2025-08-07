@@ -1,0 +1,17 @@
+<div class="container my-5">
+  <div class="card shadow-sm">
+    <div class="card-header bg-warning text-dark">
+      <h2 class="mb-0">Edit File Upload</h2>
+    </div>
+    <div class="card-body">
+      <%= render "form", file_upload: @file_upload %>
+
+      <hr>
+
+      <div class="d-flex justify-content-between">
+        <%= link_to "← Show this File Upload", @file_upload, class: "btn btn-info" %>
+        <%= link_to "Back to File Uploads", file_uploads_path, class: "btn btn-secondary" %>
+      </div>
+    </div>
+  </div>
+</div>

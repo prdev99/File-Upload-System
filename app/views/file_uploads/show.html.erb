@@ -1,0 +1,73 @@
+<div class="container mt-4">
+  <% if notice.present? %>
+    <div class="alert alert-success">
+      <%= notice %>
+    </div>
+  <% end %>
+
+  <div class="card mb-4">
+    <div class="card-header">
+      <h5 class="mb-0">Uploaded File Details</h5>
+    </div>
+    <div class="card-body">
+      <%= render @file_upload %>
+
+      <% if @file_upload.file.attached? %>
+        <% content_type = @file_upload.file.content_type %>
+
+        <% if content_type.start_with?('image/') %>
+          <!-- Show image with max width for better UX -->
+          <%= image_tag url_for(@file_upload.file), style: "max-width: 400px; height: auto; border: 1px solid #ccc;" %>
+
+        <% elsif content_type.start_with?('video/') %>
+          <!-- Show video -->
+          <video width="400" controls>
+            <source src="<%= url_for(@file_upload.file) %>" type="<%= content_type %>">
+            Your browser does not support the video tag.
+          </video>
+
+        <% elsif content_type == 'application/pdf' %>
+          <!-- Show PDF -->
+          <iframe src="<%= url_for(@file_upload.file) %>" width="100%" height="600px" style="border: none;"></iframe>
+
+        <% elsif content_type == 'text/plain' %>
+          <!-- Show text content -->
+          <pre style="max-width: 100%; overflow-x: auto; padding: 10px; background-color: #f5f5f5;">
+            <%= @file_upload.file.download %>
+          </pre>
+
+        <% elsif content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || 
+                  content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || 
+                  content_type == 'text/csv' %>
+          <!-- Provide download link for Word, Excel, CSV -->
+          <p>
+            File type not viewable in browser. 
+            <%= link_to 'Download File', rails_blob_path(@file_upload.file, disposition: "attachment"), class: "btn btn-primary", target: "_blank" %>
+          </p>
+
+        <% else %>
+          <!-- Fallback for unsupported types -->
+          <p>
+            File format not supported for preview. 
+            <%= link_to 'Download File', rails_blob_path(@file_upload.file, disposition: "attachment"), class: "btn btn-secondary", target: "_blank" %>
+          </p>
+        <% end %>
+      <% else %>
+        <p>No file uploaded.</p>
+      <% end %>
+
+    </div>
+  </div>
+
+  <div class="d-flex gap-2">
+    <%= link_to "Edit File", edit_file_upload_path(@file_upload), class: "btn btn-primary" %>
+    <%= link_to "Back to Uploads", file_uploads_path, class: "btn btn-outline-secondary" %>
+    <%= button_to "Delete File", @file_upload, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+  </div>
+
+  <% if @file_upload.compressed_file.attached? %>
+    <div class="mt-4">
+      <%= link_to "Download Compressed File", rails_blob_path(@file_upload.compressed_file, disposition: "attachment"), class: "btn btn-success" %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,6 @@
+<h1>Shared File</h1>
+<p><strong>Title:</strong> <%= @file_upload.title %></p>
+<p><strong>Description:</strong> <%= @file_upload.description %></p>
+<% if @file_upload.file.attached? %>
+  <p><%= link_to "Download File", rails_blob_url(@file_upload.file, disposition: "attachment") %></p>
+<% end %>

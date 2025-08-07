@@ -1,0 +1,12 @@
+<div class="container my-5">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h2 class="mb-0">Upload New File</h2>
+    </div>
+    <div class="card-body">
+      <%= render "form", file_upload: @file_upload %>
+      <hr>
+      <%= link_to "← Back to File Uploads", file_uploads_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
+</div>

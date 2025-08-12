@@ -1,24 +1,56 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+File Upload System
+This is a Ruby on Rails application for uploading and managing files.
+Follow the steps below to set up and run the project locally.
 
-Things you may want to cover:
+Prerequisites
+Ruby version: 3.0.0
 
-* Ruby version
+Rails version: 7.1.5
 
-* System dependencies
+Database: PostgreSQL
 
-* Configuration
+Git installed on your system
 
-* Database creation
+Setup Instructions
+Clone the repository
 
-* Database initialization
+bash
+Copy
+Edit
+git clone <repository-link>
+Navigate to the project directory
 
-* How to run the test suite
+bash
+Copy
+Edit
+cd <project-folder>
+Install dependencies
 
-* Services (job queues, cache servers, search engines, etc.)
+bash
+Copy
+Edit
+bundle install
+Set up the database
 
-* Deployment instructions
+bash
+Copy
+Edit
+rails db:create
+rails db:migrate
+rails db:seed
+Start the Rails server
 
-* ...
+bash
+Copy
+Edit
+rails s
+Login with the seeded credentials
+
+makefile
+Copy
+Edit
+Email:    admin@example.com
+Password: password123
+Once logged in, you can start using the File Upload System.
